@@ -19,9 +19,11 @@
 #define LEFT ((uint8_t) 4)
 #define SLEEP ((uint8_t) 5)
 #define BITMAP ((uint8_t) 6)
+#define LINE ((uint8_t) 7)
+#define CLEAR ((uint8_t) 8)
 
 uint8_t ScriptRunner::script[] = {
-    RATE, 20,
+    RATE, 30,
     HSCROLL, 5, 'H', 'e', 'l', 'l', 'o',
     LEFT, 5, 'W', 'o', 'r', 'l', 'd',
     SLEEP, 0x03, 0xE8,
@@ -30,6 +32,11 @@ uint8_t ScriptRunner::script[] = {
         0x28, 0x14, 0x0c, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     SLEEP, 0x03, 0xE8,
     HSCROLL, 1, ' ', // length=0 doesn't work (it should though)
+    LINE, 0, 0, 32, 8,
+    LINE, 0, 8, 32, 0,
+    LINE, 16, 0, 16, 8,
+    LINE, 0, 4, 32, 4,
+    SLEEP, 0x03, 0xE8,
     END
 };
 
@@ -70,6 +77,16 @@ void ScriptRunner::run() {
             BitmapEffect effect(runner.get_display(), pos);
             runner.show(effect);
             pos += 32;
+        } break;
+        case LINE: {
+            uint8_t x1 = *(pos++);
+            uint8_t y1 = *(pos++);
+            uint8_t x2 = *(pos++);
+            uint8_t y2 = *(pos++);
+            runner.get_display().line(x1, y1, x2, y2);
+        } break;
+        case CLEAR: {
+            runner.get_display().clear();
         } break;
         }
     }
