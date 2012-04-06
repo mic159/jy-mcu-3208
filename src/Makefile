@@ -2,7 +2,7 @@ PROJECT	       = demo
 
 PRG            = $(PROJECT)
 OBJECTS        = 
-AVR_OBJECTS    = display ht1632c runner scriptrunner avrcpp \
+AVR_OBJECTS    = display ht1632c runner scriptrunner serialrunner avrcpp \
         effects/hscroll effects/left effects/bitmap \
         font fonts/jiffy \
         $(PROJECT) 
