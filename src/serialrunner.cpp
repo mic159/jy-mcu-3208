@@ -43,21 +43,18 @@ void SerialRunner::run()
         command = readByte();
 
         switch (command) {
-        case RATE:
-            runner.set_delay(readByte());
-            break;
+        case CLEAR: {
+            runner.get_display().clear();
+        } break;
+        case FRAME: {
+            runner.get_display().update();
+        } break;
         case LINE: {
             uint8_t x1 = readByte();
             uint8_t y1 = readByte();
             uint8_t x2 = readByte();
             uint8_t y2 = readByte();
             runner.get_display().line(x1, y1, x2, y2);
-        } break;
-        case CLEAR: {
-            runner.get_display().clear();
-        } break;
-        case FRAME: {
-            runner.get_display().update();
         } break;
         case BOX: {
             uint8_t x1 = readByte();
