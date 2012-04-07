@@ -61,3 +61,20 @@ void Display::line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
 		}
 	}
 }
+
+void Display::box(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
+{
+	for (uint8_t x = x1; x < x2; ++x)
+	{
+		pixelOn(x, y1);
+		pixelOn(x, y2);
+	}
+	for (uint8_t y = y1; y < y2; ++y)
+	{
+		pixelOn(x1, y);
+		pixelOn(x2, y);
+	}
+}
+
+
+

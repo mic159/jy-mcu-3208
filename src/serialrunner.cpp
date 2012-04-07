@@ -15,6 +15,7 @@
 #define FRAME ((uint8_t) 3)
 #define CLEAR ((uint8_t) 4)
 #define LINE  ((uint8_t) 5)
+#define BOX   ((uint8_t) 6)
 
 
 SerialRunner::SerialRunner(Runner& runner)
@@ -57,6 +58,13 @@ void SerialRunner::run()
         } break;
         case FRAME: {
             runner.get_display().update();
+        } break;
+        case BOX: {
+            uint8_t x1 = readByte();
+            uint8_t y1 = readByte();
+            uint8_t x2 = readByte();
+            uint8_t y2 = readByte();
+            runner.get_display().box(x1, y1, x2, y2);
         } break;
         }
     }
