@@ -2,7 +2,7 @@
  * serialrunner.h
  *
  *  Created on: 23/03/2012
- *      Author: damien
+ *      Author: michael
  */
 
 #ifndef SERIALRUNNER_H_
