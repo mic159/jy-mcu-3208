@@ -1,8 +1,6 @@
 #include "display.h"
-#include "effects/hscroll.h"
 #include "runner.h"
 #include "serialrunner.h"
-#include "fonts/jiffy.h"
 
 int main(void) {
 
@@ -10,6 +8,8 @@ int main(void) {
     Runner runner(display);
     SerialRunner serialRunner(runner);
 
+	display.line(0,0,32,8);
+	display.update();
     while (1)
         serialRunner.run();
 
