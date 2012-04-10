@@ -2,19 +2,19 @@ PROJECT	       = demo
 
 PRG            = $(PROJECT)
 OBJECTS        = commands scriptparser
-AVR_OBJECTS    = display ht1632c runner scriptrunner serialrunner avrcpp \
-        effects/hscroll effects/left effects/bitmap \
-        font fonts/jiffy \
-        $(PROJECT) 
+AVR_OBJECTS    = display ht1632c runner uart serialrunner avrcpp $(PROJECT) #\
+#        effects/hscroll effects/left effects/bitmap \
+#        font fonts/jiffy \
+#        $(PROJECT) 
 TEST_OBJECTS   = test commandstest scriptparsertest
 
-ARDUINO_HOME  ?= /opt/arduino-0018
+ARDUINO_HOME  ?= /home/michaelc/software/arduino
 
 # "arduino" or any programmer supported by avrdude
-PROGRAMMER    ?= arduino
-#UPLOAD_SPEED   = 19200 # for Diecimilia
-UPLOAD_SPEED  ?= 57600
-UPLOAD_PORT   ?= /dev/ttyUSB0
+PROGRAMMER    ?= avrisp2
+#UPLOAD_SPEED  ?= 19200 # for Diecimilia
+#UPLOAD_SPEED  ?= 57600
+UPLOAD_PORT   ?= /dev/ttyACM0#/dev/ttyUSB0
 
 MCU_TARGET    ?= atmega8
 OPTIMIZE       = -O2
@@ -57,7 +57,6 @@ export CFLAGS CPPFLAGS F_CPU LDFLAGS ARDUINO_HOME CC CPP INCLUDES ARDUINO_CORE
 all: $(PRG).elf lst text eeprom
 
 $(PRG).elf: $(BUILD_OBJS)
-	# I have no idea why I need $(LIBS) twice
 	$(AVRCPP) $(AVRCPPFLAGS) $(AVRLDFLAGS) -o $@ $(LIBS) $^ $(LIBS)
 
 %.avr.o : %.c 
@@ -136,8 +135,8 @@ reset_arduino:
 
 else
 AVRDUDE = avrdude \
-		-p$(MCU_TARGET) -c$(PROGRAMMER) -P$(UPLOAD_PORT) \
-		-b$(UPLOAD_SPEED)
+		-p$(MCU_TARGET) -c$(PROGRAMMER) -P$(UPLOAD_PORT) 
+#		-b$(UPLOAD_SPEED)
 
 reset_arduino:
 

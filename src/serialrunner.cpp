@@ -7,9 +7,8 @@
 
 #include "serialrunner.h"
 #include <avr/io.h>
-
-#define BAUD 9600
-#define MYUBRR (F_CPU / 16 / BAUD - 1)
+#include <avr/interrupt.h>
+#include "uart.h"
 
 #define RATE  ((uint8_t) 2)
 #define FRAME ((uint8_t) 3)
@@ -17,22 +16,18 @@
 #define LINE  ((uint8_t) 5)
 #define BOX   ((uint8_t) 6)
 
-
 SerialRunner::SerialRunner(Runner& runner)
 : runner(runner)
 {
-	UBRRH = (MYUBRR >> 8);
-	UBRRL = MYUBRR;
-	UCSRB = (1 << RXEN) | (1 << TXEN);      // Enable receiver and transmitter
-	UCSRC = (1 << URSEL) |(1 << UCSZ1) | (1 << UCSZ0);    // Set frame: 8data, 1 stp
+	uart_init(UART_BAUD_SELECT(9600, F_CPU));
 }
 
 uint8_t readByte( void )
 {
- 	// Wait for incomming data
-	while ( !(UCSRA & (1<<RXC)) ) ;
-	// Return the data
-	return UDR;
+	unsigned int b = UART_NO_DATA;
+	while (b == UART_NO_DATA)
+		b = uart_getc();
+	return b;
 }
 
 void SerialRunner::run()
@@ -41,7 +36,10 @@ void SerialRunner::run()
     while (true)
     {
         command = readByte();
-
+            runner.get_display().clear();
+            runner.get_display().pixelOn(command, 0);
+            runner.get_display().update();
+/*
         switch (command) {
         case CLEAR: {
             runner.get_display().clear();
@@ -64,6 +62,7 @@ void SerialRunner::run()
             runner.get_display().box(x1, y1, x2, y2);
         } break;
         }
+        */
     }
 }
 
