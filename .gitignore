@@ -11,4 +11,4 @@
 *.swp
 /original.tar.gz
 /src/test
-
+*~
