@@ -11,9 +11,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-Display::Display(): buffer(HTleds) {
-    ::HTpinsetup();
-    ::HTsetup();
+Display::Display(uint8_t offset_x, uint8_t offset_y)
+: buffer(HTleds)
+, offset_x(offset_x)
+, offset_y(offset_y)
+{
+	::HTpinsetup();
+	::HTsetup();
 }
 
 void Display::update() {
