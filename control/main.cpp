@@ -21,12 +21,12 @@ public:
 	void frame()
 	{
 		uint8_t data[] = {FRAME, 0};
-		write(port, data, 1);
+		write(port, data, 2);
 	};
 	void clear()
 	{
 		uint8_t data[] = {CLEAR, 0};
-		write(port, data, 1);
+		write(port, data, 2);
 	}
 	void line(int x1, int y1, int x2, int y2)
 	{
@@ -52,25 +52,14 @@ int main()
 	}
 	Display display(port);
 	
-	sleep(1);
-	//display.clear();
-	//display.frame();
-	//sleep(1);
-	display.box(0, 0, 31, 7);
-	//sleep(1);
-	//display.frame();
-	//sleep(1);
-	display.line(1, 4, 30, 4);
-	//display.frame();
-	sleep(1);
-	/*for (uint8_t i = 1; i < 8*4; ++i)
+	for (uint8_t i = 1; i < 8*4; ++i)
 	{
 		display.clear();
 		display.box(0, 0, 32 - 1, 8 - 1);
 		display.line(1, 4, i, 4);
 		display.frame();
-		sleep(0.1);
-	}*/
+		sleep(1);
+	}
 	
 	return 0;
 }

@@ -37,10 +37,7 @@ void SerialRunner::run()
     while (true)
     {
         command = readByte();
-            runner.get_display().clear();
-            runner.get_display().pixelOn(command, 0);
-            runner.get_display().update();
-/*
+
         switch (command) {
         case CLEAR: {
             runner.get_display().clear();
@@ -63,7 +60,7 @@ void SerialRunner::run()
             runner.get_display().box(x1, y1, x2, y2);
         } break;
         }
-        */
+
     }
 }
 
