@@ -20,6 +20,7 @@ SerialRunner::SerialRunner(Runner& runner)
 : runner(runner)
 {
 	uart_init(UART_BAUD_SELECT(9600, F_CPU));
+	sei();
 }
 
 uint8_t readByte( void )
