@@ -21,12 +21,12 @@ public:
 	void frame()
 	{
 		uint8_t data[] = {FRAME, 0};
-		write(port, data, 2);
+		write(port, data, 1);
 	};
 	void clear()
 	{
 		uint8_t data[] = {CLEAR, 0};
-		write(port, data, 2);
+		write(port, data, 1);
 	}
 	void line(int x1, int y1, int x2, int y2)
 	{
@@ -52,13 +52,17 @@ int main()
 	}
 	Display display(port);
 	
-	for (uint8_t i = 1; i < 8*4; ++i)
+	const int height = 8*2;
+	const int width = 8*4;
+	
+	// Box wipe
+	for (uint8_t i = 1; i < width; ++i)
 	{
 		display.clear();
-		display.box(0, 0, 32 - 1, 8 - 1);
-		display.line(1, 4, i, 4);
+		display.box (0, 0, width - 1, height - 1);
+		display.line(i, 0, i, height - 1);
 		display.frame();
-		sleep(1);
+		usleep(100000);
 	}
 	
 	return 0;
