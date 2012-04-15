@@ -28,7 +28,22 @@ void Display::clear() {
     ::memset(buffer, 0, 32);
 }
 
-void Display::line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+void Display::line_straight(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
+{
+	if (y1 != y2)
+	{
+		int8_t step = (y1 < y2) ? 1 : -1;
+		for (uint8_t y = y1; y != y2; y += step)
+			pixelOn(x1, y);
+	} else {
+		int8_t step = (x1 < x2) ? 1 : -1;
+		for (uint8_t x = x1; x != x2; x += step)
+			pixelOn(x, y1);
+	}
+}
+
+void Display::line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
+{
 // Taken from http://www.edepot.com/linec.html
 
 	bool yLonger=false;

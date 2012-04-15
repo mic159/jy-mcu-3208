@@ -28,8 +28,9 @@ public:
 		if (y >= height|| y < 0) return;
 		buffer[x] |= 1 << y;
 	}
-		
+	
 	void line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+	void line_straight(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
 	void box(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
 private:
 	uint8_t offset_x;
