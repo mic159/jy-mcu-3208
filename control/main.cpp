@@ -5,11 +5,11 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#define RATE  ((uint8_t) 2)
-#define FRAME ((uint8_t) 3)
-#define CLEAR ((uint8_t) 4)
-#define LINE  ((uint8_t) 5)
-#define BOX   ((uint8_t) 6)
+#define FRAME ((uint8_t) 2)
+#define CLEAR ((uint8_t) 3)
+#define LINE  ((uint8_t) 4)
+#define BOX   ((uint8_t) 5)
+#define SLINE ((uint8_t) 6)
 
 int setup(const char* device);
 
